@@ -13,5 +13,6 @@
         "xstring": "cpp",
         "xtree": "cpp",
         "xutility": "cpp"
-    }
+    },
+    "cmakeIntelliSense.cmakePath": ".pixi\\envs\\default\\Library\\bin"
 }

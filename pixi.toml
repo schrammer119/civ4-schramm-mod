@@ -1,0 +1,10 @@
+[workspace]
+authors = ["Alexander E. Schramm"]
+channels = ["conda-forge"]
+name = "civ4-schramm-mod"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]

@@ -69,3 +69,7 @@ Testing/
 
 # old toolchain
 toolchain/vc7
+
+# pixi environments
+.pixi/*
+!.pixi/config.toml
