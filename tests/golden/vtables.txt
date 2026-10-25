@@ -1,0 +1,5 @@
+??_7CvDLLEntity@@6B@ 2 <local> ?setup@CvDLLEntity@@UAEXXZ
+??_7CvStatBase@@6B@ 1 <local>
+??_7CvStatFloat@@6B@ 1 <local>
+??_7CvStatInt@@6B@ 1 <local>
+??_7CvStatString@@6B@ 1 <local>
