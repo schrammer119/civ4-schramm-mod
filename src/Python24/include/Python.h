@@ -31,7 +31,7 @@
 
 #include <stdio.h>
 #ifndef NULL
-#   error "Python.h requires that stdio.h define NULL."
+#error "Python.h requires that stdio.h define NULL."
 #endif
 
 #include <string.h>
@@ -55,10 +55,10 @@
 #include "pyport.h"
 
 /* pyconfig.h or pyport.h may or may not define DL_IMPORT */
-#ifndef DL_IMPORT	/* declarations for DLL import/export */
+#ifndef DL_IMPORT /* declarations for DLL import/export */
 #define DL_IMPORT(RTYPE) RTYPE
 #endif
-#ifndef DL_EXPORT	/* declarations for DLL import/export */
+#ifndef DL_EXPORT /* declarations for DLL import/export */
 #define DL_EXPORT(RTYPE) RTYPE
 #endif
 
@@ -128,22 +128,22 @@
 #include "pystrtod.h"
 
 /* _Py_Mangle is defined in compile.c */
-PyAPI_FUNC(int) _Py_Mangle(char *p, char *name, \
-				 char *buffer, size_t maxlen);
+PyAPI_FUNC(int) _Py_Mangle(char *p, char *name,
+                           char *buffer, size_t maxlen);
 
 /* PyArg_GetInt is deprecated and should not be used, use PyArg_Parse(). */
-#define PyArg_GetInt(v, a)	PyArg_Parse((v), "i", (a))
+#define PyArg_GetInt(v, a) PyArg_Parse((v), "i", (a))
 
 /* PyArg_NoArgs should not be necessary.
    Set ml_flags in the PyMethodDef to METH_NOARGS. */
-#define PyArg_NoArgs(v)		PyArg_Parse(v, "")
+#define PyArg_NoArgs(v) PyArg_Parse(v, "")
 
 /* Convert a possibly signed character to a nonnegative int */
 /* XXX This assumes characters are 8 bits wide */
 #ifdef __CHAR_UNSIGNED__
-#define Py_CHARMASK(c)		(c)
+#define Py_CHARMASK(c) (c)
 #else
-#define Py_CHARMASK(c)		((c) & 0xff)
+#define Py_CHARMASK(c) ((c) & 0xff)
 #endif
 
 #include "pyfpe.h"
@@ -151,8 +151,8 @@ PyAPI_FUNC(int) _Py_Mangle(char *p, char *name, \
 /* These definitions must match corresponding definitions in graminit.h.
    There's code in compile.c that checks that they are the same. */
 #define Py_single_input 256
-#define Py_file_input 257
-#define Py_eval_input 258
+#define Py_file_input   257
+#define Py_eval_input   258
 
 #ifdef HAVE_PTH
 /* GNU pth user-space thread support */
@@ -160,8 +160,8 @@ PyAPI_FUNC(int) _Py_Mangle(char *p, char *name, \
 #endif
 
 /* Define macros for inline documentation. */
-#define PyDoc_VAR(name) static char name[]
-#define PyDoc_STRVAR(name,str) PyDoc_VAR(name) = PyDoc_STR(str)
+#define PyDoc_VAR(name)         static char name[]
+#define PyDoc_STRVAR(name, str) PyDoc_VAR(name) = PyDoc_STR(str)
 #ifdef WITH_DOC_STRINGS
 #define PyDoc_STR(str) str
 #else

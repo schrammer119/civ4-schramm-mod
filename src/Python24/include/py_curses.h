@@ -7,7 +7,7 @@
 ** On Mac OS X 10.2 [n]curses.h and stdlib.h use different guards
 ** against multiple definition of wchar_t.
 */
-#ifdef	_BSD_WCHAR_T_DEFINED_
+#ifdef _BSD_WCHAR_T_DEFINED_
 #define _WCHAR_T
 #endif
 #endif
@@ -17,7 +17,7 @@
 ** On FreeBSD, [n]curses.h and stdlib.h/wchar.h use different guards
 ** against multiple definition of wchar_t and wint_t.
 */
-#ifdef	_XOPEN_SOURCE_EXTENDED
+#ifdef _XOPEN_SOURCE_EXTENDED
 #ifndef __FreeBSD_version
 #include <osreldate.h>
 #endif
@@ -61,116 +61,135 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #define PyCurses_API_pointers 4
 
-/* Type declarations */
+    /* Type declarations */
 
-typedef struct {
-	PyObject_HEAD
-	WINDOW *win;
-} PyCursesWindowObject;
+    typedef struct
+    {
+        PyObject_HEAD WINDOW *win;
+    } PyCursesWindowObject;
 
-#define PyCursesWindow_Check(v)	 ((v)->ob_type == &PyCursesWindow_Type)
+#define PyCursesWindow_Check(v) ((v)->ob_type == &PyCursesWindow_Type)
 
 #ifdef CURSES_MODULE
-/* This section is used when compiling _cursesmodule.c */
+    /* This section is used when compiling _cursesmodule.c */
 
 #else
 /* This section is used in modules that use the _cursesmodule API */
 
 static void **PyCurses_API;
 
-#define PyCursesWindow_Type (*(PyTypeObject *) PyCurses_API[0])
-#define PyCursesSetupTermCalled  {if (! ((int (*)(void))PyCurses_API[1]) () ) return NULL;}
-#define PyCursesInitialised      {if (! ((int (*)(void))PyCurses_API[2]) () ) return NULL;}
-#define PyCursesInitialisedColor {if (! ((int (*)(void))PyCurses_API[3]) () ) return NULL;}
+#define PyCursesWindow_Type (*(PyTypeObject *)PyCurses_API[0])
+#define PyCursesSetupTermCalled                  \
+    {                                            \
+        if (!((int (*)(void))PyCurses_API[1])()) \
+            return NULL;                         \
+    }
+#define PyCursesInitialised                      \
+    {                                            \
+        if (!((int (*)(void))PyCurses_API[2])()) \
+            return NULL;                         \
+    }
+#define PyCursesInitialisedColor                 \
+    {                                            \
+        if (!((int (*)(void))PyCurses_API[3])()) \
+            return NULL;                         \
+    }
 
-#define import_curses() \
-{ \
-  PyObject *module = PyImport_ImportModule("_curses"); \
-  if (module != NULL) { \
-    PyObject *module_dict = PyModule_GetDict(module); \
-    PyObject *c_api_object = PyDict_GetItemString(module_dict, "_C_API"); \
-    if (PyCObject_Check(c_api_object)) { \
-      PyCurses_API = (void **)PyCObject_AsVoidPtr(c_api_object); \
-    } \
-  } \
-}
+#define import_curses()                                                           \
+    {                                                                             \
+        PyObject *module = PyImport_ImportModule("_curses");                      \
+        if (module != NULL)                                                       \
+        {                                                                         \
+            PyObject *module_dict = PyModule_GetDict(module);                     \
+            PyObject *c_api_object = PyDict_GetItemString(module_dict, "_C_API"); \
+            if (PyCObject_Check(c_api_object))                                    \
+            {                                                                     \
+                PyCurses_API = (void **)PyCObject_AsVoidPtr(c_api_object);        \
+            }                                                                     \
+        }                                                                         \
+    }
 #endif
 
-/* general error messages */
-static char *catchall_ERR  = "curses function returned ERR";
-static char *catchall_NULL = "curses function returned NULL";
+    /* general error messages */
+    static char *catchall_ERR = "curses function returned ERR";
+    static char *catchall_NULL = "curses function returned NULL";
 
-/* Function Prototype Macros - They are ugly but very, very useful. ;-)
+    /* Function Prototype Macros - They are ugly but very, very useful. ;-)
 
-   X - function name
-   TYPE - parameter Type
-   ERGSTR - format string for construction of the return value
-   PARSESTR - format string for argument parsing
-   */
+       X - function name
+       TYPE - parameter Type
+       ERGSTR - format string for construction of the return value
+       PARSESTR - format string for argument parsing
+       */
 
-#define NoArgNoReturnFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
-{ \
-  PyCursesInitialised \
-  return PyCursesCheckERR(X(), # X); }
+#define NoArgNoReturnFunction(X)                              \
+    static PyObject *PyCurses_##X(PyObject *self)             \
+    {                                                         \
+        PyCursesInitialised return PyCursesCheckERR(X(), #X); \
+    }
 
-#define NoArgOrFlagNoReturnFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self, PyObject *args) \
-{ \
-  int flag = 0; \
-  PyCursesInitialised \
-  switch(PyTuple_Size(args)) { \
-  case 0: \
-    return PyCursesCheckERR(X(), # X); \
-  case 1: \
-    if (!PyArg_ParseTuple(args, "i;True(1) or False(0)", &flag)) return NULL; \
-    if (flag) return PyCursesCheckERR(X(), # X); \
-    else return PyCursesCheckERR(no ## X (), # X); \
-  default: \
-    PyErr_SetString(PyExc_TypeError, # X " requires 0 or 1 arguments"); \
-    return NULL; } }
+#define NoArgOrFlagNoReturnFunction(X)                                         \
+    static PyObject *PyCurses_##X(PyObject *self, PyObject *args)              \
+    {                                                                          \
+        int flag = 0;                                                          \
+        PyCursesInitialised switch (PyTuple_Size(args))                        \
+        {                                                                      \
+        case 0:                                                                \
+            return PyCursesCheckERR(X(), #X);                                  \
+        case 1:                                                                \
+            if (!PyArg_ParseTuple(args, "i;True(1) or False(0)", &flag))       \
+                return NULL;                                                   \
+            if (flag)                                                          \
+                return PyCursesCheckERR(X(), #X);                              \
+            else                                                               \
+                return PyCursesCheckERR(no##X(), #X);                          \
+        default:                                                               \
+            PyErr_SetString(PyExc_TypeError, #X " requires 0 or 1 arguments"); \
+            return NULL;                                                       \
+        }                                                                      \
+    }
 
-#define NoArgReturnIntFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
-{ \
- PyCursesInitialised \
- return PyInt_FromLong((long) X()); }
+#define NoArgReturnIntFunction(X)                             \
+    static PyObject *PyCurses_##X(PyObject *self)             \
+    {                                                         \
+        PyCursesInitialised return PyInt_FromLong((long)X()); \
+    }
 
+#define NoArgReturnStringFunction(X)                         \
+    static PyObject *PyCurses_##X(PyObject *self)            \
+    {                                                        \
+        PyCursesInitialised return PyString_FromString(X()); \
+    }
 
-#define NoArgReturnStringFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
-{ \
-  PyCursesInitialised \
-  return PyString_FromString(X()); }
+#define NoArgTrueFalseFunction(X)                 \
+    static PyObject *PyCurses_##X(PyObject *self) \
+    {                                             \
+        PyCursesInitialised if (X() == FALSE)     \
+        {                                         \
+            Py_INCREF(Py_False);                  \
+            return Py_False;                      \
+        }                                         \
+        Py_INCREF(Py_True);                       \
+        return Py_True;                           \
+    }
 
-#define NoArgTrueFalseFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
-{ \
-  PyCursesInitialised \
-  if (X () == FALSE) { \
-    Py_INCREF(Py_False); \
-    return Py_False; \
-  } \
-  Py_INCREF(Py_True); \
-  return Py_True; }
-
-#define NoArgNoReturnVoidFunction(X) \
-static PyObject *PyCurses_ ## X (PyObject *self) \
-{ \
-  PyCursesInitialised \
-  X(); \
-  Py_INCREF(Py_None); \
-  return Py_None; }
+#define NoArgNoReturnVoidFunction(X)              \
+    static PyObject *PyCurses_##X(PyObject *self) \
+    {                                             \
+        PyCursesInitialised                       \
+        X();                                      \
+        Py_INCREF(Py_None);                       \
+        return Py_None;                           \
+    }
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* !defined(Py_CURSES_H) */
-
-
