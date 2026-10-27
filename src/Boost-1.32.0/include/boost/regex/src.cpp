@@ -3,24 +3,24 @@
  * Copyright (c) 1998-2002
  * Dr John Maddock
  *
- * Use, modification and distribution are subject to the 
- * Boost Software License, Version 1.0. (See accompanying file 
+ * Use, modification and distribution are subject to the
+ * Boost Software License, Version 1.0. (See accompanying file
  * LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  *
  */
- 
- /*
-  *   LOCATION:    see http://www.boost.org for most recent version.
-  *   FILE         src.cpp
-  *   VERSION      see <boost/version.hpp>
-  *   DESCRIPTION: Includes all the regex source files, include this
-  *                file only if you need to build the regex library
-  *                as a single file.  You must include this file
-  *                before any other regex header.
-  *
-  *                CAUTION: THIS FILE IS DEPRICATED AND WILL CAUSE 
-  *                UNNECESSARY CODE BLOAT.
-  */
+
+/*
+ *   LOCATION:    see http://www.boost.org for most recent version.
+ *   FILE         src.cpp
+ *   VERSION      see <boost/version.hpp>
+ *   DESCRIPTION: Includes all the regex source files, include this
+ *                file only if you need to build the regex library
+ *                as a single file.  You must include this file
+ *                before any other regex header.
+ *
+ *                CAUTION: THIS FILE IS DEPRICATED AND WILL CAUSE
+ *                UNNECESSARY CODE BLOAT.
+ */
 
 #if (!defined(BOOST_REGEX_NO_LIB) || !defined(BOOST_REGEX_NO_EXTERNAL_TEMPLATES)) && defined(BOOST_REGEX_CONFIG_HPP)
 #error too late you have already included a regex header - make sure that you include this header before any other boost header
@@ -50,6 +50,3 @@
 #include "libs/regex/src/regex.cpp"
 #include "libs/regex/src/regex_debug.cpp"
 #include "libs/regex/src/regex_synch.cpp"
-
-
-

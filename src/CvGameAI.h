@@ -10,29 +10,26 @@
 class CvGameAI : public CvGame
 {
 
-public:
+  public:
+    CvGameAI();
+    virtual ~CvGameAI();
 
-  CvGameAI();
-  virtual ~CvGameAI();
+    void AI_init();
+    void AI_uninit();
+    void AI_reset();
 
-  void AI_init();
-  void AI_uninit();
-	void AI_reset();
+    void AI_makeAssignWorkDirty();
+    void AI_updateAssignWork();
 
-	void AI_makeAssignWorkDirty();
-	void AI_updateAssignWork();
+    int AI_combatValue(UnitTypes eUnit);
 
-	int AI_combatValue(UnitTypes eUnit);
+    int AI_turnsPercent(int iTurns, int iPercent);
 
-	int AI_turnsPercent(int iTurns, int iPercent);
+    virtual void read(FDataStreamBase *pStream);
+    virtual void write(FDataStreamBase *pStream);
 
-	virtual void read(FDataStreamBase* pStream);
-	virtual void write(FDataStreamBase* pStream);
-
-protected:
-
-  int m_iPad;
-
+  protected:
+    int m_iPad;
 };
 
 #endif

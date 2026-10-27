@@ -14,5 +14,13 @@
         "xtree": "cpp",
         "xutility": "cpp"
     },
-    "cmakeIntelliSense.cmakePath": ".pixi\\envs\\default\\Library\\bin"
+    "cmakeIntelliSense.cmakePath": ".pixi\\envs\\default\\Library\\bin",
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": ".*\\.(cpp|h|inl)$",
+                "cmd": ".pixi\\envs\\default\\Library\\bin\\clang-format.exe ${file}"
+            }
+        ]
+    }
 }

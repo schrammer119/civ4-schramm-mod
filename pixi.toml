@@ -6,5 +6,7 @@ platforms = ["win-64"]
 version = "0.1.0"
 
 [tasks]
+format = "clang-format -i **/*.cpp **/*.h **/*.inl"
 
 [dependencies]
+clang-format = ">=23.1.4,<24"
