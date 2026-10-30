@@ -1,4 +1,6 @@
 {
+    "cmake.useCMakePresets": "always",
+    "cmake.cmakePath": "${workspaceFolder}/.pixi/envs/default/Library/bin/cmake.exe",
     "files.associations": {
         "bitset": "cpp",
         "deque": "cpp",
@@ -14,7 +16,6 @@
         "xtree": "cpp",
         "xutility": "cpp"
     },
-    "cmakeIntelliSense.cmakePath": ".pixi\\envs\\default\\Library\\bin",
     "emeraldwalk.runonsave": {
         "commands": [
             {

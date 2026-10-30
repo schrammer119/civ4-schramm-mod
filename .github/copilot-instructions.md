@@ -1,0 +1,1 @@
+- project environment is contained in `.pixi/`, all tools and executables should be found in there or the `toolchain/` directories. See the `pixi.toml` manifest for more info.

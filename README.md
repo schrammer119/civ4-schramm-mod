@@ -31,7 +31,7 @@ See the toolchaine readme here: [toolchain README](toolchain/README.md)
 4. Build the project:
 
 ```bash
-pixi final-release-vc7
+pixi run build-vc7
 ```
 
 ## Development

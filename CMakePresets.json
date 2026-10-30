@@ -1,0 +1,46 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 20,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "default",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "architecture": {
+                "value": "x86",
+                "strategy": "external"
+            },
+            "environment": {
+                "PATH": "${sourceDir}/.pixi/envs/default/Library/bin;$penv{PATH}"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CIV4_BUILD_DLL": "ON",
+                "CMAKE_MAKE_PROGRAM": "${sourceDir}/.pixi/envs/default/Library/bin/ninja.exe",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "final-release-vc7",
+            "displayName": "CvGameCoreDLL (VC7.1 toolkit)",
+            "inherits": "default",
+            "toolchainFile": "${sourceDir}/cmake/vc71-toolkit.cmake",
+            "environment": {
+                "PATH": "${sourceDir}/toolchain/Vc7/bin;$penv{PATH}"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "final-release-vc7",
+            "configurePreset": "final-release-vc7",
+            "jobs": 1
+        }
+    ]
+}

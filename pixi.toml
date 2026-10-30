@@ -7,6 +7,16 @@ version = "0.1.0"
 
 [tasks]
 format = "clang-format -i **/*.cpp **/*.h **/*.inl"
+build-vc7 = "cmake --preset final-release-vc7 && cmake --build --preset final-release-vc7"
 
 [dependencies]
 clang-format = ">=23.1.4,<24"
+cmake = ">=4.4.4,<5"
+ninja = ">=1.13.2,<2"
+
+[feature.dev.dependencies]
+python = ">=3.12,<3.14"
+llvm-tools = ">=23.1.4,<24"
+
+[environments]
+dev = ["dev"]
